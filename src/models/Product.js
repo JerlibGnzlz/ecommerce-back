@@ -1,0 +1,38 @@
+const { DataTypes } = require('sequelize')
+
+module.exports = (sequelize) => {
+  sequelize.define('product', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    model: {
+      type: DataTypes.STRING
+    },
+    price: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      validate: {
+        min: 0.1
+      }
+    },
+    image: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+      
+    },
+    enabled:{
+        type:DataTypes.BOOLEAN,
+        allowNull:false
+    },
+    rating: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0
+    }
+  })
+}
