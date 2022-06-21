@@ -44,4 +44,20 @@ controller.getUserById = async (req, res) => {
     }
 }
 
+controller.updateUser = async (req, res) => {
+    const {id} = req.params
+    const user = req.body
+    try{
+        User.update(user, {
+            where: {
+                id
+            }
+        })
+        res.status(200).send("Usuario editado")
+    }
+    catch(e){
+        res.status(400).send(err)
+    }
+}
+
 module.exports = controller

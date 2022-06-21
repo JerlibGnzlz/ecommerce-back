@@ -7,3 +7,5 @@ module.exports = router;
 router.get("/", controller.getAllUsers)
 
 router.get("/:id", controller.getUserById)
+
+router.put("/:id", controller.updateUser)
