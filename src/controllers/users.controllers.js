@@ -55,7 +55,7 @@ controller.updateUser = async (req, res) => {
         })
         res.status(200).send("Usuario editado")
     }
-    catch(e){
+    catch(err){
         res.status(400).send(err)
     }
 }
