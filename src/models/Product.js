@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
     },
     enabled:{
         type:DataTypes.BOOLEAN,
-        allowNull:false
+        defaultValue:true
     },
     rating: {
       type: DataTypes.FLOAT,
