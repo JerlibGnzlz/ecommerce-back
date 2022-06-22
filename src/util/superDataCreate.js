@@ -1,3 +1,4 @@
+
 const {
   Category,
   Brand,
@@ -435,7 +436,7 @@ const userAddress = [
     {
         quantity:3,
         userId:2,
-        productId:1
+        productId:12
     },
 
     //productos del usuario 4
@@ -522,3 +523,133 @@ const userAddress = [
       productId: 26
     }
   ]
+
+  const orders = [
+    // Órdenes del usuario 2
+    {
+      status: 'CREATED',
+      total: 102.098,
+      userId: 2,
+      userPaymentId: 1,
+      userAddressId: 3
+    },
+    {
+      status: 'CREATED',
+      total: 82.999,
+      userId: 2,
+      userPaymentId: 1,
+      userAddressId: 3
+    }
+  ]
+
+  const orderItems = [
+    // Artículos de la orden 1
+    {
+      quantity: 1,
+      price: 99.999,
+      productId: 4,
+      orderId: 1
+    },
+    {
+      quantity: 1,
+      price: 2.099,
+      productId: 10,
+      orderId: 1
+    },
+    // Artículos de la orden 2
+    {
+      quantity: 1,
+      price: 82.999,
+      productId: 5,
+      orderId: 2
+    }
+  ]
+  
+const superData=async()=>{
+  //carga de categorias
+  for (let i=0; i<categories.length; i++){
+    await Category.create(categories[i])
+  };
+  console.log("categories upload db")
+
+  //carga de marcas
+  for(let i=0; i<brands.length; i++){
+    await Brand.create(brands[i])
+  };
+  console.log("brands upload db")
+
+  //carga de productos
+  for(let i=0; i<products.length; i++){
+    await Product.create(products[i])
+  };
+  console.log("products upload db")
+
+  //carga de paises
+  for (let i =0; i<countries.length; i++){
+    await Country.create(countries[i])
+  };
+  console.log("countries uploa db")
+
+  //carga de tipos de pago
+  for(let i=0; i<paymentType.length; i++){
+    await PaymentType.create(paymentType[i])
+  };
+  console.log("paymentType upload db")
+
+  //carga de usuarios
+  for(let i=0; i<user.length; i++){
+    await User.create(user[i])
+  };
+  console.log("user upload db")
+
+  //carga de articulos en carrito
+  for(let i=0; i<carItem.length; i++){
+    await CarItem.create(carItem[i])
+  };
+  console.log("carItem upload db")
+
+  //carga de direcciones
+  for(let i=0; i<userAddress.length; i++){
+    await UserAddress.create(userAddress[i])
+  };
+  console.log("userAddress upload db")
+
+  //carga metodo de pago usuario
+  for(let i=0; i<userPayments.length; i++){
+    await UserPayment.create(userPayments[i])
+  };
+  console.log("userPayment upload db")
+
+  //carga de ordenes
+  for(let i=0; i<orders.length; i++){
+    await Order.create(orders[i])
+  };
+  console.log("orders upload db")
+
+  //carga de articulos por orden
+  for(let i=0; i<orderItems.length; i++){
+    await OrderItem.create(orderItems[i])
+  };
+  console.log("orderItems upload db")
+
+  //carga de favoritos
+  for(let i=0; i<favorites.length; i++){
+    await Favorites.create(favorites[i])
+  };
+  console.log("favorites upload db")
+
+  //carga de comentarios
+  for(let i=0; i<coments.length; i++){
+    await Coments.create(coments[i])
+  };
+  console.log("coments upload db")
+  
+}
+
+module.exports={superData};
+
+
+
+
+
+
