@@ -417,3 +417,108 @@ const userAddress = [
     countryId: 5,
   },
 ];
+
+  const carItem=[
+    //productos del usuario 2
+    {
+        quantity:1,
+        userId:2,
+        productId:1
+    },
+
+    {
+        quantity:2,
+        userId:2,
+        productId:3
+    },
+
+    {
+        quantity:3,
+        userId:2,
+        productId:1
+    },
+
+    //productos del usuario 4
+    {
+        quantity:3,
+        userId:4,
+        productId:20
+    },
+
+    {
+        quantity:1,
+        userId:4,
+        productId:21
+    },
+
+    {
+        quantity:2,
+        userId:4,
+        productId:30
+    },
+
+    //productos del usuario 1
+    {
+        quantity:2,
+        userId:1,
+        productId:26
+    },
+
+    {
+        quantity:2,
+        userId:1,
+        productId:12
+    }
+  ]
+
+  const favorites = [
+    // favoritos del usuario 2
+    {
+      userId: 2,
+      productId: 1
+    },
+    {
+      userId: 2,
+      productId: 2
+    },
+    {
+      userId: 2,
+      productId: 3
+    },
+    {
+      userId: 2,
+      productId: 4
+    },
+    {
+      userId: 2,
+      productId: 5
+    },
+    // Deseados del usuario 4
+    {
+      userId: 4,
+      productId: 17
+    }
+  ]
+
+  const coments = [
+    // Reseñas del usuario 2
+    {
+      rating: 5,
+      review: 'Muy bueno, lo recomiendo al 100%',
+      userId: 2,
+      productId: 19
+    },
+    {
+      rating: 1,
+      review: 'no recoemiendo este producto mala calidad',
+      userId: 2,
+      productId: 11
+    },
+    // Reseñas de usuario 4
+    {
+      rating: 5,
+      review: 'Es el mejor producto de la vida 😍!',
+      userId: 4,
+      productId: 26
+    }
+  ]
