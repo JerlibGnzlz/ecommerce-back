@@ -10,7 +10,7 @@
     UserPayment,
     Order,
     OrderItem,
-    favorites,
+    Favorites,
     Coments
   } = require('../db')
 
@@ -387,6 +387,49 @@
 
   //console.log (products)
 
+  //tipoDePago
+const PaymentType = [
+    { paymentName: "Tarjeta de Crédito" },
+    { paymentName: "Tarjeta de Débito" },
+    { paymentName: "Mercado Pago" },
+  ];
+  
+  const userPayments = [
+    // Métodos de pago del usuario 2
+    {
+      cardNumber: "4546400034748181",
+      expirationDay: "2025-11-30",
+      provider: "Visa",
+      userId: 2,
+      paymentTypeId: 1,
+    },
+    {
+      provider: "Mercado Pago",
+      userId: 2,
+      paymentTypeId: 3,
+    },
+    // Métodos de pago del usuario 3
+    {
+      cardNumber: "5100010000000114",
+      expirationDay: "2030-11-25",
+      provider: "MasterCard",
+      userId: 3,
+      paymentTypeId: 1,
+    },
+    {
+      provider: "Mercado Pago",
+      userId: 3,
+      paymentTypeId: 3,
+    },
+    // Métodos de pago del usuario 4
+    {
+      provider: "Mercado Pago",
+      userId: 4,
+      paymentTypeId: 3,
+    },
+  ];
+  
+  //usuario
   const user = [
     {
       email: "neubigin0@4shared.com",
@@ -428,6 +471,116 @@
       phone: "+5412625783",
       birthDate: "10/07/81",
       isADmin: true,
+    },
+  ];
+  
+  const countries = [
+    { countryName: "Anguila" }, // 1
+    { countryName: "Antigua y Barbuda" }, // 2
+    { countryName: "Argentina" }, // 3
+    { countryName: "Aruba" }, // 4
+    { countryName: "Bahamas" }, // 5
+    { countryName: "Barbados" }, // 6
+    { countryName: "Belice" }, // 7
+    { countryName: "Bermudas" }, // 8
+    { countryName: "Bolivia" }, // 9
+    { countryName: "Bonaire" }, // 10
+    { countryName: "Brasil" }, // 11
+    { countryName: "Canadá" }, // 12
+    { countryName: "Chile" }, // 13
+    { countryName: "Colombia" }, // 14
+    { countryName: "Costa Rica" }, // 15
+    { countryName: "Cuba" }, // 16
+    { countryName: "Curazao" }, // 17
+    { countryName: "Dominicana" }, // 18
+    { countryName: "Ecuador" }, // 19
+    { countryName: "El Salvador" }, // 20
+    { countryName: "Estados Unidos" }, // 21
+    { countryName: "Granada" }, // 22
+    { countryName: "Groenlandia" }, // 23
+    { countryName: "Guadalupe" }, // 24
+    { countryName: "Guatemala" }, // 25
+    { countryName: "Guayana Francesa" }, // 26
+    { countryName: "Guyana" }, // 27
+    { countryName: "Haití" }, // 28
+    { countryName: "Honduras" }, // 29
+    { countryName: "Islas Caimán" }, // 30
+    { countryName: "Islas Malvinas" }, // 31
+    { countryName: "Islas Turcas y Caicos" }, // 32
+    { countryName: "Islas Vírgenes Británicas" }, // 33
+    { countryName: "Islas Vírgenes de los Estados Unidos" }, // 34
+    { countryName: "Jamaica" }, // 35
+    { countryName: "Martinica" }, // 36
+    { countryName: "México" }, // 37
+    { countryName: "Montserrat" }, // 38
+    { countryName: "Nicaragua" }, // 39
+    { countryName: "Panamá" }, // 40
+    { countryName: "Paraguay" }, // 41
+    { countryName: "Perú" }, // 42
+    { countryName: "Puerto Rico" }, // 43
+    { countryName: "República Domnicana" }, // 44
+    { countryName: "San Bartolomé" }, // 45
+    { countryName: "San Cristobal y Nieves" }, // 46
+    { countryName: "San Martín" }, // 47
+    { countryName: "San Pedro y Miquelón" }, // 48
+    { countryName: "San Vicente y las Granadinas" }, // 49
+    { countryName: "Santa Lucía" }, // 50
+    { countryName: "Surinam" }, // 51
+    { countryName: "Trinidad y Tobago" }, // 52
+    { countryName: "Uruguay" }, // 53
+    { countryName: "Venezuela" }, // 54
+  ];
+  
+  //direccionDeUsuario
+  const userAddress = [
+    {
+      postalCode: "b1123",
+      state: "Buenos",
+      city: "Anguila",
+      address: "calle 12 ",
+      annotations: "Esquina Cruz ",
+      userId: 1,
+      countryId: 1,
+    },
+  
+    {
+      postalCode: "c6784",
+      state: "Saint jhon",
+      city: "Antigua y Barbuda",
+      address: "Osbourn",
+      annotations: "a 3 km de la playa",
+      userId: 4,
+      countryId: 3,
+    },
+  
+    {
+      postalCode: "b3223",
+      state: "Buenos Aires",
+      city: "Argentina",
+      address: "Av. Eva Peron  3234",
+      annotations: "Casa blanca de rejas negra",
+      userId: 2,
+      countryId: 3,
+    },
+  
+    {
+      postalCode: "a3480",
+      state: "Orangenstal",
+      city: "Aruba",
+      address: "Smith boulevar #160",
+      annotations: "Mr. Brown",
+      userId: 5,
+      countryId: 4,
+    },
+  
+    {
+      postalCode: "h4399",
+      state: "Orangenstal",
+      city: "Bahamas",
+      address: "Smith boulevar #160",
+      annotations: "Mr. Brown",
+      userId: 1,
+      countryId: 5,
     },
   ];
 
