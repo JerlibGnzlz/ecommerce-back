@@ -3,7 +3,7 @@ const {Op} = require('sequelize')
 const controller = {}
 
 controller.product = async (req, res) => {
-    console.log("hola")
+    
     try{
         res.status(200).send(await Product.findAll())
     }catch(err){
