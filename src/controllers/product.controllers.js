@@ -6,8 +6,9 @@ controller.product = async (req, res) => {
     
     try{
         res.status(200).send(await Product.findAll({
-            include: Brand,
-            include: Category
+            include: [
+                {model: Brand}, 
+                {model: Category}]
         }))
     }catch(err){
         res.status(400).send(err)
