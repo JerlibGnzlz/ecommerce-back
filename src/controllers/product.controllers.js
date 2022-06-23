@@ -5,10 +5,12 @@ const controller = {}
 controller.product = async (req, res) => {
     let {category, brand, id, price} = req.body[0];
     
-    
+    // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
     let orderByPrice = []
     if(price){
-        orderByPrice = [['price', price]]
+        if(price === "ASC" || price === "DESC"){
+            orderByPrice = [['price', price]]
+        }
     }
 
     if(id){
