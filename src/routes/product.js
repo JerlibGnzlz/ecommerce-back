@@ -5,3 +5,4 @@ const router = express.Router();
 module.exports = router;
 
 router.get("/", controller.product)
+// router.post("/", controller.createProduct)
