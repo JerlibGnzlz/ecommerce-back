@@ -5,7 +5,6 @@ const controller = {}
 controller.product = async (req, res) => {  
     let {util} = req.query;
     let {category, brand, id, price} = req.body;
-    console.log(req)
 
 
     // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
