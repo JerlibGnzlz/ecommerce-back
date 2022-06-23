@@ -9,15 +9,15 @@ controller.getAllUsers = async (req, res) => {
         try{
             let users = await User.findAll({
                 where: {
-                    title: {
+                    names: {
                         [Op.substring]: name
                     }
                 }
             })
             res.status(200).send(users)
         }
-        catch(e){
-            res.status(400).send(e)
+        catch(err){
+            res.status(400).send(err)
         }
     }
     else{
