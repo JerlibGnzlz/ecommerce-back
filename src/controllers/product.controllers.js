@@ -5,6 +5,7 @@ const controller = {}
 controller.product = async (req, res) => {
     let {category, brand, id, price} = req.body[0];
     
+    
     let orderByPrice = []
     if(price){
         orderByPrice = [['price', price]]
