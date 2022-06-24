@@ -1,116 +1,108 @@
-const {Product, Brand, Category} = require("../db");
-const {Op} = require('sequelize')
-const controller = {}
+const { Product, Brand, Category } = require("../db");
+const { Op } = require("sequelize");
+const controller = {};
 
-controller.product = async (req, res) => {  
-    let {util} = req.query;
-    let {category, brand, id, price} = req.body;
+controller.product = async (req, res) => {
+  //let {util} = req.query;
+  let { category, brand, id, price } = req.body;
 
-
-    // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
-    let orderByPrice = []
-    if(price){
-        if(price === "ASC" || price === "DESC"){
-            orderByPrice = [['price', price]]
-        }
+  // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
+  let orderByPrice = [];
+  if (price) {
+    if (price === "ASC" || price === "DESC") {
+      orderByPrice = [["price", price]];
     }
+  }
 
-    if(util){
-        if(util === "brand"){
-            try{
-                res.status(200).send(await Brand.findAll({}))
-            }catch(err){
-                res.status(400).send(err)
-            }
-        }
-        else if(util === "category"){
-            try{
-                res.status(200).send(await Category.findAll({}))
-            }catch(err){
-                res.status(400).send(err)
-            }
-        }
+  // if(util){
+  //     if(util === "brand"){
+  //         try{
+  //             res.status(200).send(await Brand.findAll({}))
+  //         }catch(err){
+  //             res.status(400).send(err)
+  //         }
+  //     }
+  //     else if(util === "category"){
+  //         try{
+  //             res.status(200).send(await Category.findAll({}))
+  //         }catch(err){
+  //             res.status(400).send(err)
+  //         }
+  //     }
+  // }
+  if (id) {
+    try {
+      res.status(200).send(
+        await Product.findAll({
+          where: {
+            id: id,
+          },
+          include: [{ model: Brand }, { model: Category }],
+        })
+      );
+    } catch (err) {
+      res.status(400).send(err);
     }
-    else if(id){
-        try{
-            res.status(200).send(await Product.findAll({
-                where:{
-                    id: id
-                },
-                include: [
-                    {model: Brand}, 
-                    {model: Category}]
-            }))
-        }catch(err){
-             res.status(400).send(err)
-        }
+  } else if (category || brand) {
+    if (category && brand) {
+      try {
+        res.status(200).send(
+          await Product.findAll({
+            where: {
+              [Op.and]: {
+                brandId: brand,
+                categoryId: category,
+              },
+            },
+            order: orderByPrice,
+            include: [{ model: Brand }, { model: Category }],
+          })
+        );
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    } else if (category) {
+      try {
+        res.status(200).send(
+          await Product.findAll({
+            where: {
+              categoryId: category,
+            },
+            order: orderByPrice,
+            include: [{ model: Brand }, { model: Category }],
+          })
+        );
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    } else {
+      try {
+        res.status(200).send(
+          await Product.findAll({
+            where: {
+              brandId: brand,
+            },
+            order: orderByPrice,
+            include: [{ model: Brand }, { model: Category }],
+          })
+        );
+      } catch (err) {
+        res.status(400).send(err);
+      }
     }
-    else if(category || brand){
-        if(category && brand){
-            try{
-                res.status(200).send(await Product.findAll({
-                    where:{
-                        [Op.and]:{
-                            brandId: brand,
-                            categoryId: category
-                        }
-                    },
-                    order: orderByPrice,
-                    include: [
-                        {model: Brand}, 
-                        {model: Category}]
-                }))
-            }catch(err){
-                 res.status(400).send(err)
-            }
-        }
-
-        else if (category){
-            try{
-                res.status(200).send(await Product.findAll({
-                    where:{
-                        categoryId: category
-                    },
-                    order: orderByPrice,
-                    include: [
-                        {model: Brand}, 
-                        {model: Category}]
-                }))
-            }catch(err){
-                 res.status(400).send(err)
-            }
-        }
-
-        else{
-            try{
-                res.status(200).send(await Product.findAll({
-                    where:{
-                        brandId: brand
-                    },
-                    order: orderByPrice,
-                    include: [
-                        {model: Brand}, 
-                        {model: Category}]
-                }))
-            }catch(err){
-                res.status(400).send(err)
-            }
-        }
+  } else {
+    try {
+      res.status(200).send(
+        await Product.findAll({
+          order: orderByPrice,
+          include: [{ model: Brand }, { model: Category }],
+        })
+      );
+    } catch (err) {
+      res.status(400).send(err);
     }
-
-    else{
-        try{
-            res.status(200).send(await Product.findAll({
-                order: orderByPrice,
-                include: [
-                    {model: Brand}, 
-                    {model: Category}]
-            }))
-        }catch(err){
-            res.status(400).send(err)
-        }
-    }   
-}
+  }
+};
 
 // controller.createProduct = async (req, res) => {
 //     const {name, description, model, price, image, brandId, categoryId} = req.body
@@ -132,4 +124,4 @@ controller.product = async (req, res) => {
 //     }
 // }
 
-module.exports = controller
+module.exports = controller;
