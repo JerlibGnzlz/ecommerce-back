@@ -4,7 +4,7 @@ const Joi = require("joi");
 const controller = {};
 
 controller.product = async (req, res) => {
-  let { category, brand, id, price, genre } = req.body;
+  let { category, brand, id, price, genre } = req.query;
 
   // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
   let orderByPrice = [];
@@ -190,7 +190,7 @@ controller.editPorduct= async(req, res)=> {
     }
 }
 
-controller.anabledProduct = async(req, res) => {
+controller.enabledProduct = async(req, res) => {
   const {id} = req.params
 
   try{
