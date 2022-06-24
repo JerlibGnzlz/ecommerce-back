@@ -4,7 +4,7 @@ const Joi = require("joi");
 const controller = {};
 
 controller.product = async (req, res) => {
-  let { category, brand, id, price, genre } = req.query;
+  let { category, brand, id, price, genre, search } = req.query;
 
   // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
   let orderByPrice = [];
@@ -35,6 +35,7 @@ controller.product = async (req, res) => {
             where: {
               [Op.and]: {
                 // enable: true,
+                name: {[Op.substring]: search},
                 genre: genre,
                 brandId: brand,
                 categoryId: category,
@@ -54,6 +55,7 @@ controller.product = async (req, res) => {
             where: {
               [Op.and]: {
                 // enable: true,
+                name: {[Op.substring]: search},
                 genre: genre,
                 categoryId: category,
               }
@@ -72,6 +74,7 @@ controller.product = async (req, res) => {
             where: {
               [Op.and]: {
                 // enable: true,
+                name: {[Op.substring]: search},
                 genre: genre,
                 brandId: brand,
               }
@@ -89,7 +92,10 @@ controller.product = async (req, res) => {
       res.status(200).send(
         await Product.findAll({
           where: {
-            genre: genre,
+            [Op.and]: {
+              name: {[Op.substring]: search},
+              genre: genre,
+            }
           },
           order: orderByPrice,
           include: [{ model: Brand }, { model: Category }],
