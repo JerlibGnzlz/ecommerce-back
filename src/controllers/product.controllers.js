@@ -136,7 +136,8 @@ controller.createProduct = async (req, res) => {
                                     price: price, 
                                     image: image, 
                                     brandId: brandId,
-                                    categoryId: categoryId})
+                                    categoryId: categoryId,
+                                    genre: genre})
 
         const doesExist = await Product.findOne({where: {name: name}})
 
@@ -174,7 +175,8 @@ controller.editPorduct= async(req, res)=> {
                                     price: price, 
                                     image: image, 
                                     brandId: brandId,
-                                    categoryId: categoryId});
+                                    categoryId: categoryId,
+                                    genre: genre});
 
         Product.update(product, {
             where: {
