@@ -585,7 +585,7 @@ const user = [
     lastNames: "Dunnan cat",
     phone: "+54962383345",
     birthDate: "1990-05-09",
-    isADmin: true,
+    isAdmin: true,
   },
 
   {
@@ -602,7 +602,7 @@ const user = [
     lastNames: "Chil Budget",
     phone: "+5412625783",
     birthDate: "1991-01-03",
-    isADmin: true,
+    isAdmin: true,
   },
 ];
 

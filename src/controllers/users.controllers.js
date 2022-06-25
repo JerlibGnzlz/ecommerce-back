@@ -57,7 +57,8 @@ controller.updateUser = async (req, res) => {
 };
 
 controller.createUser = async (req, res) => {
-  const { email, names, lastNames, phone, birthDate, isAdmin } = req.body;
+  const { email, names, lastNames, phone, birthDate, isAdmin, enabled } =
+    req.body;
 
   try {
     const userExist = await User.findOne({
@@ -76,6 +77,7 @@ controller.createUser = async (req, res) => {
         phone,
         birthDate,
         isAdmin: false,
+        enabled: true,
       });
       res.status(200).send("user created");
     }
