@@ -860,6 +860,20 @@ const orderItems = [
     productId: 5,
     orderId: 2,
   },
+
+  {
+    quantity: 1,
+    price: 33.75,
+    productId: 4,
+    orderId: 2,
+  },
+
+  {
+    quantity: 9,
+    price: 33.75,
+    productId: 7,
+    orderId: 2,
+  },
 ];
 
 const superData = async () => {
