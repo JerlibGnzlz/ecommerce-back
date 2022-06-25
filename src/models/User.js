@@ -27,17 +27,13 @@ module.exports = (sequelize) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      defaulValue: false,
-    },
     enabled: {
       type: DataTypes.BOOLEAN,
-      defaulValue: true,
+      defaultValue: true,
     },
-    isADmin: {
+    isAdmin: {
       type: DataTypes.BOOLEAN,
-      defaulValue: false,
+      defaultValue: false,
     },
   });
 };
