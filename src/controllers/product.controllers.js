@@ -1,10 +1,15 @@
 const { Product, Brand, Category } = require("../db");
 const { Op } = require("sequelize");
 const Joi = require("joi");
+const { serialize } = require("pg-protocol");
 const controller = {};
 
 controller.product = async (req, res) => {
   let { category, brand, id, price, genre, search } = req.query;
+
+  if(!search){
+    search = ""
+  }
 
   // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
   let orderByPrice = [];
@@ -27,16 +32,94 @@ controller.product = async (req, res) => {
     } catch (err) {
       res.status(400).send(err);
     }
-  } else if (category || brand) {
-    if (category && brand) {
+  } 
+  else if(genre){
+    if (category || brand) {
+      if (category && brand ) {
+        try {
+          res.status(200).send(
+            await Product.findAll({
+              where: {
+                [Op.and]: {
+                  name: {[Op.substring]: search},
+                  genre: genre,
+                  brandId: brand,
+                  categoryId: category,
+                },
+              },
+              order: orderByPrice,
+              include: [{ model: Brand }, { model: Category }],
+            })
+          );
+        } catch (err) {
+          res.status(400).send(err);
+        }
+      } else if (category) {
+        try {
+          res.status(200).send(
+            await Product.findAll({
+              where: {
+                [Op.and]: {
+                  name: {[Op.substring]: search},
+                  genre: genre,
+                  categoryId: category,
+                }
+              },
+              order: orderByPrice,
+              include: [{ model: Brand }, { model: Category }],
+            })
+          );
+        } catch (err) {
+        res.status(400).send(err);
+        }
+    } else if (brand) {
       try {
         res.status(200).send(
           await Product.findAll({
             where: {
               [Op.and]: {
-                // enable: true,
                 name: {[Op.substring]: search},
                 genre: genre,
+                brandId: brand,
+              }
+              },
+              order: orderByPrice,
+              include: [{ model: Brand }, { model: Category }],
+            })
+          );
+        } catch (err) {
+          res.status(400).send(err);
+        }
+      }
+    } 
+    else{
+      try {
+        res.status(200).send(
+          await Product.findAll({
+            where: {
+              [Op.and]: {
+                name: {[Op.substring]: search},
+                genre: genre,
+              }
+            },
+            order: orderByPrice,
+            include: [{ model: Brand }, { model: Category }],
+          })
+        );
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    }
+  }
+  if (category || brand) {
+    
+    if (category && brand ) {
+      try {
+        res.status(200).send(
+          await Product.findAll({
+            where: {
+              [Op.and]: {
+                name: {[Op.substring]: search},
                 brandId: brand,
                 categoryId: category,
               },
@@ -54,9 +137,7 @@ controller.product = async (req, res) => {
           await Product.findAll({
             where: {
               [Op.and]: {
-                // enable: true,
                 name: {[Op.substring]: search},
-                genre: genre,
                 categoryId: category,
               }
             },
@@ -65,19 +146,17 @@ controller.product = async (req, res) => {
           })
         );
       } catch (err) {
-        res.status(400).send(err);
+      res.status(400).send(err);
       }
-    } else {
-      try {
-        res.status(200).send(
-          await Product.findAll({
-            where: {
-              [Op.and]: {
-                // enable: true,
-                name: {[Op.substring]: search},
-                genre: genre,
-                brandId: brand,
-              }
+  } else{
+    try {
+      res.status(200).send(
+        await Product.findAll({
+          where: {
+            [Op.and]: {
+              name: {[Op.substring]: search},
+              brandId: brand,
+            }
             },
             order: orderByPrice,
             include: [{ model: Brand }, { model: Category }],
@@ -87,28 +166,12 @@ controller.product = async (req, res) => {
         res.status(400).send(err);
       }
     }
-  } else if (genre){
-    try {
-      res.status(200).send(
-        await Product.findAll({
-          where: {
-            [Op.and]: {
-              name: {[Op.substring]: search},
-              genre: genre,
-            }
-          },
-          order: orderByPrice,
-          include: [{ model: Brand }, { model: Category }],
-        })
-      );
-    } catch (err) {
-      res.status(400).send(err);
-    }
   }
   else{
     try {
       res.status(200).send(
         await Product.findAll({
+          name: {[Op.substring]: search},
           order: orderByPrice,
           include: [{ model: Brand }, { model: Category }],
         })
