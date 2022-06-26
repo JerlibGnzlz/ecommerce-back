@@ -72,7 +72,7 @@ controller.product = async (req, res) => {
         } catch (err) {
         res.status(400).send(err);
         }
-    } else if (brand) {
+    } else {
       try {
         res.status(200).send(
           await Product.findAll({
@@ -111,7 +111,7 @@ controller.product = async (req, res) => {
       }
     }
   }
-  if (category || brand) {
+  else if (category || brand) {
     
     if (category && brand ) {
       try {
