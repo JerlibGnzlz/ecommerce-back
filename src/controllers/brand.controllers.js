@@ -7,7 +7,8 @@ controller.brand = async (req, res) => {
   try{
     let allBrands = undefined
     let product = []
-    if(category){
+    if(category || genre){
+      if(category && genre){
       product = await Product.findAll({
         where: {
           [Op.and]: {
@@ -15,13 +16,21 @@ controller.brand = async (req, res) => {
               categoryId: category,
           }
         },
-    })}
-    else if (genre){
-      product = await Product.findAll({
-        where:{
-          genre:genre
-        }
-      })
+      })}
+      else if (genre){
+        product = await Product.findAll({
+          where:{
+            genre:genre
+          }
+        })
+      }
+      else{
+        product = await Product.findAll({
+          where:{
+            categoryId: category
+          }
+        })
+      }
     }
     else{
       allBrands = await Brand.findAll()
