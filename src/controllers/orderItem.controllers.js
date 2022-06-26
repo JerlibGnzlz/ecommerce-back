@@ -8,7 +8,9 @@ const controller = {};
 controller.orderItem = async (req, res) => {
   let { util } = req.query;
 
-  const allOrderItem = await OrderItem.findAll();
+  const allOrderItem = await OrderItem.findAll({
+    include: [{ model: Product }],
+  });
 
   let array = [];
 
@@ -61,6 +63,14 @@ controller.orderItem = async (req, res) => {
       res.status(200).send(product);
     } catch (err) {
       res.status(400).send(err);
+    }
+  } else {
+    if (util === "orderItem") {
+      try {
+        res.status(200).send(allOrderItem);
+      } catch (err) {
+        res.status(404).send(err);
+      }
     }
   }
 

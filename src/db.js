@@ -46,6 +46,7 @@ const {
   Brand,
   UserPayment,
   PaymentType,
+  OrderItem,
   Coments,
   CarItem,
   Order,
@@ -86,8 +87,14 @@ Order.belongsTo(UserAddress);
 Country.hasMany(UserAddress);
 UserAddress.belongsTo(Country);
 
-Product.belongsToMany(Order, { through: "orderItem" });
-Order.belongsToMany(Product, { through: "orderItem" });
+// Product.belongsToMany(Order, { through: "orderItem" });
+// Order.belongsToMany(Product, { through: "orderItem" });
+
+Product.hasMany(OrderItem, { foreignKey: { allowNull: false } });
+OrderItem.belongsTo(Product);
+
+Order.hasMany(OrderItem, { foreignKey: { allowNull: false } });
+OrderItem.belongsTo(Order);
 
 User.belongsToMany(Product, { through: "favorites" });
 Product.belongsToMany(User, { through: "favorites" });
