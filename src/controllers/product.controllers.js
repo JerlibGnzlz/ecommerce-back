@@ -7,8 +7,8 @@ const controller = {};
 controller.product = async (req, res) => {
   let { category, brand, id, price, genre, search } = req.query;
 
-  if(!search){
-    search = ""
+  if (!search) {
+    search = "";
   }
 
   // para que no se creen errores price sola mente puede tomar los valores ASC o DESC sino no se aplicara el ordenamiento
@@ -32,16 +32,15 @@ controller.product = async (req, res) => {
     } catch (err) {
       res.status(400).send(err);
     }
-  } 
-  else if(genre){
+  } else if (genre) {
     if (category || brand) {
-      if (category && brand ) {
+      if (category && brand) {
         try {
           res.status(200).send(
             await Product.findAll({
               where: {
                 [Op.and]: {
-                  name: {[Op.substring]: search},
+                  name: { [Op.substring]: search },
                   genre: genre,
                   brandId: brand,
                   categoryId: category,
@@ -60,28 +59,28 @@ controller.product = async (req, res) => {
             await Product.findAll({
               where: {
                 [Op.and]: {
-                  name: {[Op.substring]: search},
+                  name: { [Op.substring]: search },
                   genre: genre,
                   categoryId: category,
-                }
+                },
               },
               order: orderByPrice,
               include: [{ model: Brand }, { model: Category }],
             })
           );
         } catch (err) {
-        res.status(400).send(err);
+          res.status(400).send(err);
         }
-    } else {
-      try {
-        res.status(200).send(
-          await Product.findAll({
-            where: {
-              [Op.and]: {
-                name: {[Op.substring]: search},
-                genre: genre,
-                brandId: brand,
-              }
+      } else {
+        try {
+          res.status(200).send(
+            await Product.findAll({
+              where: {
+                [Op.and]: {
+                  name: { [Op.substring]: search },
+                  genre: genre,
+                  brandId: brand,
+                },
               },
               order: orderByPrice,
               include: [{ model: Brand }, { model: Category }],
@@ -91,16 +90,15 @@ controller.product = async (req, res) => {
           res.status(400).send(err);
         }
       }
-    } 
-    else{
+    } else {
       try {
         res.status(200).send(
           await Product.findAll({
             where: {
               [Op.and]: {
-                name: {[Op.substring]: search},
+                name: { [Op.substring]: search },
                 genre: genre,
-              }
+              },
             },
             order: orderByPrice,
             include: [{ model: Brand }, { model: Category }],
@@ -110,16 +108,14 @@ controller.product = async (req, res) => {
         res.status(400).send(err);
       }
     }
-  }
-  else if (category || brand) {
-    
-    if (category && brand ) {
+  } else if (category || brand) {
+    if (category && brand) {
       try {
         res.status(200).send(
           await Product.findAll({
             where: {
               [Op.and]: {
-                name: {[Op.substring]: search},
+                name: { [Op.substring]: search },
                 brandId: brand,
                 categoryId: category,
               },
@@ -137,26 +133,26 @@ controller.product = async (req, res) => {
           await Product.findAll({
             where: {
               [Op.and]: {
-                name: {[Op.substring]: search},
+                name: { [Op.substring]: search },
                 categoryId: category,
-              }
+              },
             },
             order: orderByPrice,
             include: [{ model: Brand }, { model: Category }],
           })
         );
       } catch (err) {
-      res.status(400).send(err);
+        res.status(400).send(err);
       }
-  } else{
-    try {
-      res.status(200).send(
-        await Product.findAll({
-          where: {
-            [Op.and]: {
-              name: {[Op.substring]: search},
-              brandId: brand,
-            }
+    } else {
+      try {
+        res.status(200).send(
+          await Product.findAll({
+            where: {
+              [Op.and]: {
+                name: { [Op.substring]: search },
+                brandId: brand,
+              },
             },
             order: orderByPrice,
             include: [{ model: Brand }, { model: Category }],
@@ -166,12 +162,14 @@ controller.product = async (req, res) => {
         res.status(400).send(err);
       }
     }
-  }
-  else{
+  } else {
+    console.log("llega por favor");
     try {
       res.status(200).send(
         await Product.findAll({
-          name: {[Op.substring]: search},
+          where: {
+            name: { [Op.iLike]: `%${search}%` },
+          },
           order: orderByPrice,
           include: [{ model: Brand }, { model: Category }],
         })
@@ -191,94 +189,93 @@ const schema = Joi.object({
   brandId: Joi.number().required(),
   categoryId: Joi.number().required(),
   genre: Joi.string().valid("men", "women", "kids", "accesories").insensitive(),
-})
-
-
+});
 
 controller.createProduct = async (req, res) => {
-    const {name, description, model, price, image, brandId, categoryId, genre} = req.body
+  const { name, description, model, price, image, brandId, categoryId, genre } =
+    req.body;
 
-    try{
-        await schema.validateAsync({name: name,  
-                                    description: description, 
-                                    model: model, 
-                                    price: price, 
-                                    image: image, 
-                                    brandId: brandId,
-                                    categoryId: categoryId,
-                                    genre: genre})
+  try {
+    await schema.validateAsync({
+      name: name,
+      description: description,
+      model: model,
+      price: price,
+      image: image,
+      brandId: brandId,
+      categoryId: categoryId,
+      genre: genre,
+    });
 
-        const doesExist = await Product.findOne({where: {name: name}})
+    const doesExist = await Product.findOne({ where: { name: name } });
 
-        if (doesExist){
-          res.status(400).send(`${name} ya existe un producto con ese nombre`)
-        }
-        else{
-          await Product.create({
-              genre: genre,
-              name: name,
-              description: description,
-              model: model,
-              price: price,
-              image: image,
-              brandId: brandId,
-              categoryId: categoryId,
-              rating: 0
-          })
-          res.status(200).send("producto creado")
-        }
+    if (doesExist) {
+      res.status(400).send(`${name} ya existe un producto con ese nombre`);
+    } else {
+      await Product.create({
+        genre: genre,
+        name: name,
+        description: description,
+        model: model,
+        price: price,
+        image: image,
+        brandId: brandId,
+        categoryId: categoryId,
+        rating: 0,
+      });
+      res.status(200).send("producto creado");
     }
-    catch(err){
-        res.status(400).send(err)
-    }
-}
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
 
-controller.editPorduct= async(req, res)=> {
-    const {id} = req.params
-    const {name, description, model, price, image, brandId, categoryId, genre} = req.body
-    
-    try{
-        const product = await schema.validateAsync({name: name,  
-                                    description: description, 
-                                    model: model, 
-                                    price: price, 
-                                    image: image, 
-                                    brandId: brandId,
-                                    categoryId: categoryId,
-                                    genre: genre});
+controller.editPorduct = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, model, price, image, brandId, categoryId, genre } =
+    req.body;
 
-        Product.update(product, {
-            where: {
-                id
-            }
-        });
-        res.status(200).send("Usuario editado");
-    }
-    catch(err){
-        res.status(400).send(err)
-    }
-}
+  try {
+    const product = await schema.validateAsync({
+      name: name,
+      description: description,
+      model: model,
+      price: price,
+      image: image,
+      brandId: brandId,
+      categoryId: categoryId,
+      genre: genre,
+    });
 
-controller.enabledProduct = async(req, res) => {
-  const {id} = req.params
+    Product.update(product, {
+      where: {
+        id,
+      },
+    });
+    res.status(200).send("Usuario editado");
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
 
-  try{
-    const doesExist = await Product.findOne({where:{[Op.and]: {id: id, enabled: true}}})
+controller.enabledProduct = async (req, res) => {
+  const { id } = req.params;
 
-    if (doesExist){
-      Product.update({ enabled: false }, { where: {id} });
-     res.status(200).send("Producto desabilitado");
-    }
-    else{
-      Product.update({ enabled: true }, { where: {id} });
+  try {
+    const doesExist = await Product.findOne({
+      where: { [Op.and]: { id: id, enabled: true } },
+    });
+
+    if (doesExist) {
+      Product.update({ enabled: false }, { where: { id } });
+      res.status(200).send("Producto desabilitado");
+    } else {
+      Product.update({ enabled: true }, { where: { id } });
       res.status(200).send("Producto habilitado");
     }
-    
+  } catch (err) {
+    res.status(400).send(err);
   }
-  catch(err){
-      res.status(400).send(err)
-  }
-}
-
+};
 
 module.exports = controller;
