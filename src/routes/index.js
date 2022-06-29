@@ -4,11 +4,13 @@ const product = require("./product");
 const category = require("./category");
 const brand = require("./brand");
 const orderItem = require("./orderItem");
+const mercadopago = require("./mercadoPago")
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 const router = Router();
 
+router.use("/mp", mercadopago)
 router.use("/users", users);
 router.use("/product", product);
 router.use("/categories", category);
