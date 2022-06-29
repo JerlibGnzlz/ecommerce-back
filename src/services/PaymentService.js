@@ -11,6 +11,7 @@ class PaymentService{
                 description: i.description,
                 picture_url: i.image,
                 category_id: "cat123",
+                currency_id: "USD",
                 quantity: i.quantity,
                 unit_price: i.price,
             }
