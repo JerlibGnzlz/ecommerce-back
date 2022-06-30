@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     birthDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     enabled: {
@@ -34,6 +34,10 @@ module.exports = (sequelize) => {
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+    },
+    cart: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      defaultValue:[],
     },
   });
 };
