@@ -821,60 +821,60 @@ const coments = [
   },
 ];
 
-const orders = [
-  // Órdenes del usuario 2
-  {
-    status: "CREATED",
-    total: 76.4,
-    userId: 2,
-    userPaymentId: 1,
-    userAddressId: 3,
-  },
-  {
-    status: "CREATED",
-    total: 75.9,
-    userId: 2,
-    userPaymentId: 1,
-    userAddressId: 3,
-  },
-];
+// const orders = [
+//   // Órdenes del usuario 2
+//   {
+//     status: "CREATED",
+//     total: 76.4,
+//     userId: 2,
+//     userPaymentId: 1,
+//     userAddressId: 3,
+//   },
+//   {
+//     status: "CREATED",
+//     total: 75.9,
+//     userId: 2,
+//     userPaymentId: 1,
+//     userAddressId: 3,
+//   },
+// ];
 
-const orderItems = [
-  // Artículos de la orden 1
-  {
-    quantity: 1,
-    price: 33.75,
-    productId: 4,
-    orderId: 1,
-  },
-  {
-    quantity: 2,
-    price: 42.66,
-    productId: 10,
-    orderId: 1,
-  },
-  // Artículos de la orden 2
-  {
-    quantity: 3,
-    price: 75.9,
-    productId: 5,
-    orderId: 2,
-  },
+// const orderItems = [
+//   // Artículos de la orden 1
+//   {
+//     quantity: 1,
+//     price: 33.75,
+//     productId: 4,
+//     orderId: 1,
+//   },
+//   {
+//     quantity: 2,
+//     price: 42.66,
+//     productId: 10,
+//     orderId: 1,
+//   },
+//   // Artículos de la orden 2
+//   {
+//     quantity: 3,
+//     price: 75.9,
+//     productId: 5,
+//     orderId: 2,
+//   },
 
-  {
-    quantity: 1,
-    price: 33.75,
-    productId: 4,
-    orderId: 2,
-  },
+//   {
+//     quantity: 1,
+//     price: 33.75,
+//     productId: 4,
+//     orderId: 2,
+//   },
 
-  {
-    quantity: 9,
-    price: 33.75,
-    productId: 7,
-    orderId: 2,
-  },
-];
+//   {
+//     quantity: 9,
+//     price: 33.75,
+//     productId: 7,
+//     orderId: 2,
+//   },
+// ];
 
 const superData = async () => {
   //carga de categorias
@@ -931,17 +931,17 @@ const superData = async () => {
   }
   console.log("userPayment upload db");
 
-  //carga de ordenes
-  for (let i = 0; i < orders.length; i++) {
-    await Order.create(orders[i]);
-  }
-  console.log("orders upload db");
+  // //carga de ordenes
+  // for (let i = 0; i < orders.length; i++) {
+  //   await Order.create(orders[i]);
+  // }
+  // console.log("orders upload db");
 
-  //carga de articulos por orden
-  for (let i = 0; i < orderItems.length; i++) {
-    await OrderItem.create(orderItems[i]);
-  }
-  console.log("orderItems upload db");
+  // //carga de articulos por orden
+  // for (let i = 0; i < orderItems.length; i++) {
+  //   await OrderItem.create(orderItems[i]);
+  // }
+  // console.log("orderItems upload db");
 
   //carga de favoritos
   for (let i = 0; i < favorites.length; i++) {

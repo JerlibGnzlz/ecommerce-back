@@ -78,7 +78,7 @@ Product.belongsToMany(User, { through: "carItem" });
 User.hasMany(Order, { foreignKey: { allowNull: false } });
 Order.belongsTo(User);
 
-UserPayment.hasMany(Order, { foreignKey: { allowNull: false } });
+UserPayment.hasMany(Order);
 Order.belongsTo(UserPayment);
 
 UserAddress.hasMany(Order);
