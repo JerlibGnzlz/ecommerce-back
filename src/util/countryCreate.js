@@ -66,9 +66,7 @@ const countryListTotal = countryList.map((country) => {
 const saveCountries = async () => {
   try {
     await Country.bulkCreate(countryListTotal);
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 
 // saveCountries()

@@ -55,7 +55,7 @@ controller.orderItem = async (req, res) => {
     },
     include: [{ model: Brand }, { model: Category }],
   });
-  console.log(product);
+
   if (!util) {
     try {
       res.status(200).send(product);
