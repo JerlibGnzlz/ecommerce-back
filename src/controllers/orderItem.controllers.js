@@ -49,8 +49,6 @@ controller.orderItem = async (req, res) => {
     array = array.slice(0, 5);
   }
 
-  console.log(array[0].id);
-
   const product = await Product.findAll({
     where: {
       id: [array[0].id, array[1].id, array[2].id, array[3].id, array[4].id],
