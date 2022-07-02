@@ -5,19 +5,19 @@ const category = require("./category");
 const brand = require("./brand");
 const orderItem = require("./orderItem");
 const auth = require("./auth");
-const middleware = require("../middleware");
-const softMiddleware = require("../middleware/integrationSoft");
 const verifyUser = require("./verifyUser");
+//const softMiddleware = require("../middleware/integrationSoft");
+//const middleware = require("../middleware");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 const router = Router();
 
-router.use("/users", middleware.decodeToken, users);
-router.use("/product", softMiddleware.decodeSoft, product);
-router.use("/categories", middleware.decodeToken, category);
+router.use("/users", users);
+router.use("/product", product);
+router.use("/categories", category);
 router.use("/brands", brand);
-router.use("/orderItem", middleware.decodeToken, orderItem);
+router.use("/orderItem", orderItem);
 router.use("/auth", auth);
 router.use("/verify", verifyUser);
 
