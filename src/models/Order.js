@@ -1,14 +1,14 @@
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  sequelize.define('order', {
-    status: {
-      type: DataTypes.STRING,
-      defaultValue: 'CREATED'
+  sequelize.define("order", {
+    state: {
+      type: DataTypes.ENUM(["pending","accepted","rejected"]),
+      allowNull:false,
     },
-    total: {
-      type: DataTypes.DECIMAL,
-      allowNull: false
-    }
-  })
-}
+    total:{
+        type:DataTypes.INTEGER,
+        allowNull:true,
+    },
+  });
+};

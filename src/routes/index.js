@@ -4,6 +4,7 @@ const product = require("./product");
 const category = require("./category");
 const brand = require("./brand");
 const orderItem = require("./orderItem");
+const mercadopago = require("./mercadoPago")
 const auth = require("./auth");
 const verifyUser = require("./verifyUser");
 //const softMiddleware = require("../middleware/integrationSoft");
@@ -13,6 +14,7 @@ const verifyUser = require("./verifyUser");
 
 const router = Router();
 
+router.use("/mp", mercadopago)
 router.use("/users", users);
 router.use("/product", product);
 router.use("/categories", category);
