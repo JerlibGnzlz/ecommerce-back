@@ -1,4 +1,4 @@
-const { Order, Product, OrderItem, User } = require("../db");
+const { Order, OrderItem, User } = require("../db");
 
 class PaymentController {
     constructor(subscriptionService){
@@ -9,7 +9,8 @@ class PaymentController {
         try{
             console.log(req)
             const payment = await this.subscriptionService.createPayment(req);
-            let order = await Order.create({state:"pending", total:req.body.total, userId:req.body.user})
+            let user = await User.findOne({where:{email: req.body.user}})
+            let order = await Order.create({state:"pending", total:req.body.total, userId:user.id})
             await req.body.product.map(async p => {
                     await OrderItem.create({orderId: order.id, productId: p.id, quantity: p.quantity})
             })
