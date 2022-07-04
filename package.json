@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -L",
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
   "repository": {
@@ -18,11 +19,15 @@
   },
   "homepage": "https://github.com/JerlibGnzlz/ecommerce-back#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "firebase": "^9.8.4",
+    "firebase-admin": "^11.0.0",
     "joi": "^17.6.0",
+    "mercadopago": "^1.5.13",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "sequelize": "^6.21.0"

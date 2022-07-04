@@ -163,7 +163,6 @@ controller.product = async (req, res) => {
       }
     }
   } else {
-    console.log("llega por favor");
     try {
       res.status(200).send(
         await Product.findAll({
