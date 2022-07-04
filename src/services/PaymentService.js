@@ -8,11 +8,11 @@ class PaymentService{
             return {
                 title: i.name,
                 description: i.description,
-                picture_url: i.image,
+                picture_url: i.image[0],
                 category_id: "cat123",
                 currency_id: "USD",
                 quantity: i.quantity,
-                unit_price: i.price,
+                unit_price: parseFloat(i.price),
             }
         })
         const url = "https://api.mercadopago.com/checkout/preferences";
@@ -21,7 +21,7 @@ class PaymentService{
             payer_email: "test_user_14959901@testuser.com",
             items: items,
             back_urls: {
-                success: "/success",
+                success: "http://localhost:3000/products",
                 failure: "/failure",
                 pending: "/pending"
             },
