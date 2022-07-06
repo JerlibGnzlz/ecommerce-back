@@ -7,6 +7,7 @@ const orderItem = require("./orderItem");
 const mercadopago = require("./mercadoPago")
 const auth = require("./auth");
 const verifyUser = require("./verifyUser");
+const order = require("./order")
 //const softMiddleware = require("../middleware/integrationSoft");
 //const middleware = require("../middleware");
 // Importar todos los routers;
@@ -14,6 +15,7 @@ const verifyUser = require("./verifyUser");
 
 const router = Router();
 
+router.use("/order", order)
 router.use("/mp", mercadopago)
 router.use("/users", users);
 router.use("/product", product);

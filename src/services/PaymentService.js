@@ -27,7 +27,7 @@ class PaymentService{
                 success: "http://localhost:3000/products",
                 failure: "/failure",
                 pending: "/pending"
-            },
+            },  
             payment_methods: {
                 installments: 1
             }}
