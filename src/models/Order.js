@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       allowNull:false,
     },
     total:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.FLOAT,
         allowNull:true,
     },
   });

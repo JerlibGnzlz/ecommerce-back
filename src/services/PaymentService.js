@@ -4,7 +4,9 @@ const {ACCESS_TOKEN} = process.env;
 
 class PaymentService{
     async createPayment(req){
+        let total = 0
         const items = req.body.product.map(i => {
+            total = total + (i.price * i.quantity);
             return {
                 title: i.name,
                 description: i.description,
@@ -15,6 +17,7 @@ class PaymentService{
                 unit_price: parseFloat(i.price),
             }
         })
+
         const url = "https://api.mercadopago.com/checkout/preferences";
 
         const body = {
@@ -27,9 +30,7 @@ class PaymentService{
             },
             payment_methods: {
                 installments: 1
-            },
-            notification_url: "http://www.your-site.com/ipn"
-            };
+            }}
         const payment = await axios.post(url, body, {
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +38,7 @@ class PaymentService{
             }
         });
 
-        return payment.data;
+        return [payment.data, total];
     }
 }
 
